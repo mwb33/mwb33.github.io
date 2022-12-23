@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-12-23T12:25:40-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mark Boady - Fun with Computer Science</title><subtitle>This is an outlet for any cool computer science stuff that does not fit into any classes.</subtitle><entry><title type="html">Steiner Triple Systems</title><link href="http://localhost:4000/sts/" rel="alternate" type="text/html" title="Steiner Triple Systems" /><published>2022-12-22T00:00:00-05:00</published><updated>2022-12-22T00:00:00-05:00</updated><id>http://localhost:4000/sts</id><content type="html" xml:base="http://localhost:4000/sts/"><![CDATA[<h1 id="how-to-create-a-steiner-triple-system-from-a-latin-square">How to Create a Steiner Triple System from a Latin Square</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>A Steiner Triple System (STS) is a Set of Sets. Each subset contains exactly three elements and each pair of elements appears in exactly one subset (Weisstein). To denote the values in a Steiner Triple System, we give the largest value in the set, this is called the <strong>order</strong>. We call $STS(v)$ a Steiner Triple System of order $v$.</p>
+
+<p>To make this definition more clear, we can look at an example. Here is one $STS(7)$ from (Weisstein).</p>
+
+\[STS(7)=\lbrace  
+    \lbrace 1,2,4\rbrace ,
+    \lbrace 2,3,5\rbrace ,
+    \lbrace 3,4,6\rbrace ,
+    \lbrace 4,5,7\rbrace ,
+    \lbrace 5,6,1\rbrace ,
+    \lbrace 6,7,2\rbrace ,
+    \lbrace 7,1,3\rbrace  
+\rbrace\]
+
+<p>Remember that a <strong>set</strong> is a unordered collection with no duplicates. That means that $\lbrace 1,2,4\rbrace$ and $\lbrace 2,4,1\rbrace$ are the same set. The first triple contains the following <strong>pairs</strong> $\lbrace 1,2\rbrace $, $\lbrace 1,4\rbrace$, and $\lbrace 2,4\rbrace$. Notice that these pairs do not appear in any other triples. This system is small enough we can show all pairs appear exactly once exhaustively. This is a useful example to prepare you for the later sections.</p>
+
+<p>We label each triple to make it easier to talk about them. This will also make it more obvious each pair appears in exactly one triple.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Triple</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$t_{0}$</td>
+      <td>$\lbrace 1,2,4\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$t_{1}$</td>
+      <td>$\lbrace 2,3,5\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$t_{2}$</td>
+      <td>$\lbrace 3,4,6\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$t_{3}$</td>
+      <td>$\lbrace 4,5,7\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$t_{4}$</td>
+      <td>$\lbrace 5,6,1\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$t_{5}$</td>
+      <td>$\lbrace 6,7,2\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$t_{6}$</td>
+      <td>$\lbrace 7,1,3\rbrace$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Next, we list every pair of two numbers between $1$ and $7$. We match each pair to the triple it appears in. Remember, each pair must appear exactly one time.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pair</th>
+      <th>Triple It Appears In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$\lbrace 1,2\rbrace$</td>
+      <td>$t_{0}=\lbrace 1,2,4\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 1,3\rbrace$</td>
+      <td>$t_{6}=\lbrace 7,1,3\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 1,4\rbrace$</td>
+      <td>$t_{0}=\lbrace 1,2,4\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 1,5\rbrace$</td>
+      <td>$t_{4}=\lbrace 5,6,1\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 1,6\rbrace$</td>
+      <td>$t_{4}=\lbrace 5,6,1\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 1,7\rbrace$</td>
+      <td>$t_{6}=\lbrace 7,1,3\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 2,3\rbrace$</td>
+      <td>$t_{1}=\lbrace 2,3,5\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 2,4\rbrace$</td>
+      <td>$t_{0}=\lbrace 1,2,4\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 2,5\rbrace$</td>
+      <td>$t_{1}=\lbrace 2,3,5\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 2,6\rbrace$</td>
+      <td>$t_{5}=\lbrace 6,7,2\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 2,7\rbrace$</td>
+      <td>$t_{5}=\lbrace 6,7,2\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 3,4\rbrace$</td>
+      <td>$t_{2}=\lbrace 3,4,6\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 3,5\rbrace$</td>
+      <td>$t_{1}=\lbrace 2,3,5\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 3,6\rbrace$</td>
+      <td>$t_{2}=\lbrace 3,4,6\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 3,7\rbrace$</td>
+      <td>$t_{6}=\lbrace 7,1,3\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 4,5\rbrace$</td>
+      <td>$t_{3}=\lbrace 4,5,7\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 4,6\rbrace$</td>
+      <td>$t_{2}=\lbrace 3,4,6\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 4,7\rbrace$</td>
+      <td>$t_{3}=\lbrace 4,5,7\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 5,6\rbrace$</td>
+      <td>$t_{4}=\lbrace 5,6,1\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 5,7\rbrace$</td>
+      <td>$t_{3}=\lbrace 4,5,7\rbrace$</td>
+    </tr>
+    <tr>
+      <td>$\lbrace 6,7\rbrace$</td>
+      <td>$t_{5}=\lbrace 6,7,2\rbrace$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This is actually the only <strong>nonisomorphic</strong> Steiner Triple Systems of order 7 (Colbourn 1999). There are many <strong>isomorphic</strong> Steiner Triple Systems of order $7$. For example, we could swap $5$ and $7$ in every triple they appear and we could create a new $STS(7)$.</p>
+
+<p>A more general way to describe our system would be using a list of values.</p>
+
+\[X=[1,2,3,4,5,6,7]\]
+
+<p>Then $STS(7)$ is given as</p>
+
+\[\begin{align*}
+STS(7)=&amp;\lbrace  
+    \lbrace X_0,X_1,X_3\rbrace ,
+    \lbrace X_1,X_2,X_4\rbrace ,
+    \lbrace X_2,X_3,X_5\rbrace , \\
+    &amp;\lbrace X_3,X_4,X_6\rbrace ,
+    \lbrace X_4,X_5,X_0\rbrace ,
+    \lbrace X_5,X_6,X_1\rbrace ,
+    \lbrace X_6,X_0,X_2\rbrace  
+\rbrace \end{align*}\]
+
+<p>We could generate another valid (but isomorphic) $STS(7)$ by changing the order of the elements in $X$.</p>
+
+<p>Let $X=[7,1,6,2,5,3,4]$ and you can create another $STS(7)$. This is <strong>isomorphic</strong> to the original. You are just changing the <em>label</em> of each element. If we describe $X$ as a set, then this order doesn’t matter and we are just talking about $STS$ that are <strong>nonisomporhic</strong>.</p>
+
+<p>We are now prepared to give a more formal description.</p>
+
+<p>$STS(v)$ is a Steiner Triple System of order $v$ is a 2-tuple containing two sets, $X$ and $B$. $X$ is a set of elements where $\lvert X \rvert = v$ and $v \ge 3$. $B$ is a set of triples selected from $X$ such that every pair in $X$ appears exactly once in a triple of $B$. Since the values of $X$ are obvious from $B$, it doesn’t need to be explicitly written very often.</p>
+
+<p>There only exist $STS(v)$ if $v \mod 6 \equiv 1$ or $v \mod 6 \equiv 3$ (Weisstein). Triple systems can be further generalized by allowing the pairs to appear more times, for example allowing each pair to appear twice (Colbourn 1999).</p>
+
+<h2 id="latin-squares">Latin Squares</h2>
+
+<p>To create Steiner Triple Systems, we will use <strong>Latin Squares</strong>. A <strong>Latin Square</strong> is an $n$ by $n$ array such that each element appears exactly once in each column and each row. Given a partial <strong>Latin Square</strong> completing the missing values is an NP-Complete Problem (Colbourn 1984). For the remainder of this article, we will just assume that any <strong>Latin Squares</strong> we need appears by <em>magic</em>.</p>
+
+<p>Let’s say we want a <strong>Latin Square</strong> with elements $1$, $2$, and $3$. We have $n=3$ elements. That means we need a $3$ by $3$ array. Each of the three elements must appear exactly one time in each row and in each column.</p>
+
+\[L_{3}=\begin{bmatrix}
+    1 &amp; 2 &amp; 3 \\
+    2 &amp; 3 &amp; 1 \\
+    3 &amp; 1 &amp; 2 
+\end{bmatrix}\]
+
+<p>Latin Squares were studied as far back as the 1700s by Choi Seok-Jeong and later by Leonhard Euler (Colbourn 1984).</p>
+
+<h2 id="steiner-triple-system-of-order-3">Steiner Triple System of Order 3</h2>
+
+<p>There is only one answer for $STS(3)$. We only have three elements $X=\lbrace 1,2,3\rbrace $. We can only make one triple that contains all three elements.</p>
+
+<p>$STS(3)=\lbrace  \lbrace 1,2,3\rbrace  \rbrace $</p>
+
+<p>This is the smallest non-empty solution to $STS(v)$. It fits into the pattern $v \mod 6 \equiv 3$. We could also give $v=1$ since $v \mod 6 \equiv 1$ is also allowed. This is a trivially empty set $STS(1)=\lbrace \rbrace $. We cannot make any triples without three elements.</p>
+
+<p>Steiner Triple Systems get interesting starting with order $7$. We will actually jump ahead and look at order $9$ first. We will see that its construction is a little easier since $9 \mod 3 = 0$.</p>
+
+<h2 id="steiner-triple-system-of-order-9">Steiner Triple System of Order 9</h2>
+
+<p>We know that $STS(v)$ only exists if $v \mod 6 \equiv 1$ or $v \mod 6 \equiv 3$. We can break this up into two groups. Each will have a slightly different construction. Let $n \ge 0$ and $v= 6n+3$. By definition this construction will give us values where $v \mod 6 \equiv 3$.</p>
+
+<p>The first few values of $n$ and $v$ are given below. We already handled $v=3$, which corresponds to $n=0$. In this section, we will construct $STS(9)$ using $n=1$.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>$n$</th>
+      <th>$v$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$0$</td>
+      <td>$3$</td>
+    </tr>
+    <tr>
+      <td>$1$</td>
+      <td>$9$</td>
+    </tr>
+    <tr>
+      <td>$2$</td>
+      <td>$15$</td>
+    </tr>
+    <tr>
+      <td>$3$</td>
+      <td>$21$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>First, you need a <strong>Latin Square</strong> with values $L=\lbrace 0,1,\cdots,2n\rbrace $. We define this as a function $i \circ j$ where $i$ is the row and $j$ is the column (Moura, Slide 9). We start with a <strong>Latin Square</strong> containing $0$, $1$, and $2$.</p>
+
+\[L_{3}=\begin{bmatrix}
+    0 &amp; 2 &amp; 1 \\
+    2 &amp; 1 &amp; 0 \\
+    1 &amp; 0 &amp; 2
+\end{bmatrix}\]
+
+<p>We then use it as a table for the function $i \circ j$.</p>
+
+<table>
+<tr><th>circ(i,j)</th><th>j=0</th><th>j=1</th><th>j=2</th></tr>
+<tr><th>i=0</th><td>0</td><td>2</td><td>1</td></tr>
+<tr><th>i=1</th><td>2</td><td>1</td><td>0</td></tr>
+<tr><th>i=2</th><td>1</td><td>0</td><td>2</td></tr>
+</table>
+
+<p>This function must be <strong>idempotent</strong> and <strong>commutative</strong> (Colbourn 1999). <strong>Idempotent</strong> means that $i \circ i = i$ and <strong>commutative</strong> means $i \circ j = j \circ i$ (Moura, Slide 9). Construction of the <strong>Latin Square</strong> needs to meet these properties. That is a whole problem itself. We will again just say that <em>magic</em> created the right <strong>Latin Square</strong>. You might want to check the example <strong>Latin Square</strong> from the earlier section and see if it meets these requirements.</p>
+
+<p>We have our function. We also need the numbers to select to put in the $STS(9)$. We create a $\frac{v}{3}$ by $3$ array containing the values. Remember that since $v \mod 6 = 3$ we know that $\frac{v}{3}$ is a whole number.</p>
+
+<p>The set of values we are putting in the triples is $X$.</p>
+
+\[X=\lbrace 1,2,3,4,5,6,7,8,9\rbrace\]
+
+<p>We call the $\frac{v}{3}$ by $3$ array $M$.</p>
+
+\[M = \begin{bmatrix}
+    1 &amp; 4 &amp; 7 \\
+    2 &amp; 5 &amp; 8 \\
+    3 &amp; 6 &amp; 9 \\
+    \end{bmatrix}\]
+
+<p>The general construction of $M$ given $n$ is</p>
+
+\[M_{n} = \begin{bmatrix}
+    1 &amp; v/3+1 &amp; 2v/3+1 \\
+    2 &amp; v/3+2 &amp; 2v/3+2\\
+    \vdots &amp; \vdots &amp; \vdots \\
+    v/3 &amp; 2v/3 &amp; v \\
+    \end{bmatrix}\]
+
+<p>We can now generate a $STS(9)$. The algorithm is described below (Moura, Slide 12). This is called a <strong>Bose</strong> construction method.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">bose</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">circ</span><span class="p">):</span>
+    <span class="n">STS</span><span class="o">=</span><span class="n">makeSet</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">S</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">STS</span> <span class="o">=</span> <span class="n">union</span><span class="p">(</span><span class="n">STS</span><span class="p">,</span><span class="n">makeSet</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+            <span class="n">t1</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">M</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">M</span><span class="p">[</span><span class="n">circ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">t2</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">M</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">M</span><span class="p">[</span><span class="n">circ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)][</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">t3</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span><span class="n">M</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span><span class="n">M</span><span class="p">[</span><span class="n">circ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">newTriples</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">,</span><span class="n">t3</span><span class="p">)</span>
+            <span class="n">STS</span><span class="o">=</span><span class="n">union</span><span class="p">(</span><span class="n">STS</span><span class="p">,</span><span class="n">newTriples</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">STS</span>
+</code></pre></div></div>
+
+<p>Running this function with the $i \circ j$ and $M$ values given above will return the following system.</p>
+
+\[\lbrace  \lbrace 1, 4, 7\rbrace , \lbrace 2, 5, 8\rbrace , \lbrace 3, 6, 9\rbrace , \lbrace 1, 2, 6\rbrace , \lbrace 4, 5, 9\rbrace , \lbrace 7, 8, 3\rbrace ,
+\\ 
+\lbrace 1, 3, 5\rbrace , \lbrace 4, 6, 8\rbrace , \lbrace 7, 9, 2\rbrace , \lbrace 2, 3, 4\rbrace , \lbrace 5, 6, 7\rbrace , \lbrace 8, 9, 1\rbrace  \rbrace\]
+
+<p>You can check that this is a valid solution to $STS(9)$. It is not the solution given in (Weisstein). This solution is <strong>isomorphic</strong> to that one. We just need to change the value of $M$.</p>
+
+\[M=\begin{bmatrix}
+    1 &amp; 4 &amp; 7 \\
+    2 &amp; 5 &amp; 8 \\
+    9 &amp; 3 &amp; 6
+    \end{bmatrix}\]
+
+<p>This will give us the set from (Weisstein).</p>
+
+\[\lbrace \lbrace 1, 4, 7\rbrace , \lbrace 2, 5, 8\rbrace , \lbrace 9, 3, 6\rbrace , \lbrace 1, 2, 3\rbrace , \lbrace 4, 5, 6\rbrace , \lbrace 7, 8, 9\rbrace , \\ 
+\lbrace 1, 9, 5\rbrace , \lbrace 4, 3, 8\rbrace , \lbrace 7, 6, 2\rbrace , \lbrace 2, 9, 4\rbrace , \lbrace 5, 3, 7\rbrace , \lbrace 8, 6, 1\rbrace \rbrace\]
+
+<p>We can generate any <strong>isomorphic</strong> $STS(9)$ related to our <strong>Latin Square</strong> by just changing the values in $M$. As long as it is an $\frac{v}{3}$ by 3 array containing values $(1,2,\cdots,v)$ we will get a valid solution. This is the only <strong>nonisomorphic</strong> solution to $STS(9)$, every solution is just a different ordering of $M$ (Colbourn 1999).</p>
+
+<h2 id="steiner-triple-system-of-order-7">Steiner Triple System of Order 7</h2>
+
+<p>The reason we skipped to $STS(9)$ first is because $9/3=3$. With $STS(7)$, this division has a remainder. If we want to divide $7$ numbers into $3$ columns, there will be one value left over. This value makes the algorithm a little more complex.</p>
+
+<p>We are now in the situation where $v \mod 6 \equiv 1$. We can again introduce an $n$ and define $v= 6n+1$. Some values we can get this time are shown in the below table. Remember that $STS(1)$ is trivially empty since there are not enough elements.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>$n$</th>
+      <th>$v$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>19</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This time, we make our $i \circ j$ operator from a <strong>half-idempotent</strong> <strong>Latin Square</strong> of size $2n$ by $2n$. A <strong>half-idempotent</strong> <strong>Latin Square</strong> means $i \circ i = (n+i) \circ (n+i)$ for all $0 \le i \le n-1$. An example <strong>Latin Square</strong> from (Moura, Slide 16) is given below. This is the <strong>Latin Square</strong> for $n=2$ since the property is a little more obvious with a larger <strong>Latin Square</strong>.</p>
+
+\[L_{4}=\begin{bmatrix}
+    0 &amp; 1 &amp; 2 &amp; 3 \\
+    1 &amp; 2 &amp; 3 &amp; 0 \\
+    2 &amp; 3 &amp; 0 &amp; 1 \\
+    3 &amp; 0 &amp; 1 &amp; 2 \\
+\end{bmatrix}\]
+
+<p>We are just using $n=1$ which means we need a <strong>Latin Square</strong> of size $2$ by $2$.</p>
+
+\[L_{2}=\begin{bmatrix}
+    0 &amp; 1 \\
+    1 &amp; 0 \\
+\end{bmatrix}\]
+
+<p>We have a new version of $i \circ j$ based on this <strong>Latin Square</strong>.</p>
+
+<p>Next, we need a new $M$. We can account for all but one of the elements in $STS(7)$.</p>
+
+\[M=\begin{bmatrix}
+    1 &amp; 3 &amp; 5 \\ 
+    2 &amp; 4 &amp; 6 
+    \end{bmatrix}\]
+
+<p>We have one element, $7$, missing. This is traditionally called the $\infty$ element, which is super cool sounding (Colbourn 1999; Moura, Slide 17).</p>
+
+\[\infty=7\]
+
+<p>We can now generate a $STS(7)$. The algorithm is described below (Moura, Slide 17). This is called a <strong>Skolem</strong> construction method.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">skolem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">inf</span><span class="p">,</span><span class="n">circ</span><span class="p">):</span>
+    <span class="n">STS</span><span class="o">=</span><span class="n">makeSet</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">t1</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">t2</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">M</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">t3</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">M</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="n">x</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">t4</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">M</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="n">x</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">newTriples</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">,</span><span class="n">t3</span><span class="p">,</span><span class="n">t4</span><span class="p">)</span>
+        <span class="n">STS</span><span class="o">=</span><span class="n">union</span><span class="p">(</span><span class="n">STS</span><span class="p">,</span><span class="n">newTriples</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+            <span class="n">t1</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">circ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">t2</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">circ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)][</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">t3</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="n">circ</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">newTriples</span><span class="o">=</span><span class="n">makeSet</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">,</span><span class="n">t3</span><span class="p">)</span>
+            <span class="n">STS</span><span class="o">=</span><span class="n">union</span><span class="p">(</span><span class="n">STS</span><span class="p">,</span><span class="n">newTriples</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">STS</span>
+</code></pre></div></div>
+
+<p>Running this on the values we have already established returns a solution to $STS(7)$.</p>
+
+\[\lbrace \lbrace 1, 3, 5\rbrace , \lbrace 7, 2, 3\rbrace , \lbrace 7, 4, 5\rbrace , \lbrace 7, 6, 1\rbrace , \lbrace 1, 2, 4\rbrace , \lbrace 3, 4, 6\rbrace , \lbrace 5, 6, 2\rbrace \rbrace\]
+
+<p>This is again a different but <strong>isomorphic</strong> solution compared to the one presented in (Weisstein). We can get that solution by changing $M$.</p>
+
+\[M=\begin{bmatrix}
+    2 &amp; 3 &amp; 5 \\
+    1 &amp; 4 &amp; 6
+\end{bmatrix}\]
+
+<p>The construction now gives us the solution from (Weisstein).</p>
+
+\[\lbrace \lbrace 2, 3, 5\rbrace , \lbrace 7, 1, 3\rbrace , \lbrace 7, 4, 5\rbrace , \lbrace 7, 6, 2\rbrace , \lbrace 2, 1, 4\rbrace , \lbrace 3, 4, 6\rbrace , \lbrace 5, 6, 1\rbrace \rbrace\]
+
+<p>We can generate any <strong>isomorphic</strong> $STS(7)$ related to our <strong>Latin Square</strong> by just changing the values in $M$. This is the only <strong>nonisomorphic</strong> solution to $STS(7)$, every solution is just a different ordering of $M$ (Colbourn 1999).</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>We have defined what a <strong>Steiner Triple System</strong> is. The collection $STS(v)$ is a set of sets. The subsets are triples and made of elements selected from $X=\lbrace 1,2,\cdots, v\rbrace $. Each pair of elements in $X$ appears in exactly one triple. We must have enough triples to allow each pair to appear exactly once.</p>
+
+<p>For a given $v$, there are many <strong>isomorphic</strong> solutions to $STS(v)$. These are just relabeling the same solution. For the systems we examined, there was one 1 <strong>nonisomorphic</strong> solution. This will no longer remain true as $v$ increases. The constructions we have shown work for $v \mod 6 \equiv 1$ and $v \mod 6 \equiv 3$. There are the only values of $v$ that STS exist for, so we have covered all possible answers (Weisstein).</p>
+
+<p>The algorithms given to construct $STS(v)$ are depended on <strong>Latin Squares</strong> with certain properties. Finding the correct <strong>Latin Square</strong> is a whole problem in itself. Colbourn shows that completing a partial <strong>Latin Square</strong> is NP-Complete (1984). If we somehow manage to find a <strong>Latin Square</strong>, we can then generate the related Steiner Triple System. We can actually generate all <strong>isomorphic</strong> systems from the <strong>Latin Square</strong>.</p>
+
+<p>We can wrap everything up into one nice big algorithm.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">STS</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">n</span><span class="o">=</span><span class="n">v</span><span class="o">//</span><span class="mi">6</span>
+    <span class="c1">#v has a remainder of 1 use Skolem
+</span>    <span class="k">if</span> <span class="n">v</span><span class="o">%</span><span class="mi">6</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">M</span><span class="o">=</span><span class="n">makeM</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">inf</span> <span class="o">=</span> <span class="n">getInf</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">circ</span> <span class="o">=</span> <span class="n">getLS</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">skolem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">inf</span><span class="p">,</span><span class="n">circ</span><span class="p">)</span>
+    <span class="c1">#v has a remainder of 3, use Bose
+</span>    <span class="k">if</span> <span class="n">v</span><span class="o">%</span><span class="mi">6</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">makeM</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">circ</span> <span class="o">=</span> <span class="n">getLS</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bose</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">circ</span><span class="p">)</span>
+    <span class="c1">#No Solutions
+</span>    <span class="k">return</span> <span class="n">makeSet</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Triple Systems can be generalized in many ways (Colbourn 1999). They appear in many areas of Combinatorics. There are also relationed to graph theory problems.</p>
+
+<p>The solution to $STS(v)$ is equivalent to taking a complete graph of $K_{v}$ points and partitioning it into triangles (Moura, Slide 5). The triangles for one of our solutions to $STS(7)$ is shown below.</p>
+
+<p>These triangles are based on</p>
+
+\[\begin{align*}
+STS(7)=&amp;
+\lbrace \lbrace 1, 3, 5\rbrace , \lbrace 7, 2, 3\rbrace , \lbrace 7, 4, 5\rbrace , \lbrace 7, 6, 1\rbrace , \lbrace 1, 2, 4\rbrace , \lbrace 3, 4, 6\rbrace , \lbrace 5, 6, 2\rbrace \rbrace 
+\end{align*}\]
+
+<p>Each triple denotes one triangle.</p>
+
+<p><img src="/images/triples.gif" alt="Triangles made by Triples" /></p>
+
+<p>There are many areas of investigation related to Steiner Triple Systems and other related Triple Systems. Often related to counting how many <strong>nonisomorphic</strong> systems exist or determining algorithms to create systems of specific orders. Both the algorithms shown here are hindered by the need for a <strong>Latin Square</strong> with specific properties.</p>
+
+<p>Steiner Triple Systems are interesting numerical systems and should be of interest to Mathematicians, Computer Scientists, and anyone who enjoys mathematical puzzles.</p>
+
+<h2 id="references">References</h2>
+
+<p>Colbourn, Charles J. “The Complexity of Completing Partial Latin Squares.” Discrete Applied Mathematics, vol. 8, no. 1, 1984, pp. 25–30., <a href="https://doi.org/10.1016/0166-218x(84)90075-1">https://doi.org/10.1016/0166-218x(84)90075-1</a>.</p>
+
+<p>Colbourn, Charles, et al. Triple Systems (Oxford Mathematical Monographs). 1st ed., Clarendon Press, 1999.</p>
+
+<p>Colbourn, Charles J. and Dinitz, Jeffrey H. Handbook of Combinatorial Designs, 2nd ed., CRC Press, November 2006.</p>
+
+<p>Moura, Lucia. “Steiner Triple Systems.”, uOttawa, Summer 2022, <a href="https://www.site.uottawa.ca/~lucia/courses/7160-17/slides/04SteinerTripleSystems.pdf">https://www.site.uottawa.ca/~lucia/courses/7160-17/slides/04SteinerTripleSystems.pdf</a>.</p>
+
+<p>Weisstein, Eric W. “Steiner Triple System.” From MathWorld–A Wolfram Web Resource. <a href="https://mathworld.wolfram.com/SteinerTripleSystem.html">https://mathworld.wolfram.com/SteinerTripleSystem.html</a></p>]]></content><author><name></name></author><summary type="html"><![CDATA[In this post we explain what a Steiner Triple System is. Then we show to to make one using a Latin Square.]]></summary></entry></feed>

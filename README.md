@@ -1,2 +1,4 @@
-# mwb33.github.io
-A computer science blog
+# Just a Blog
+
+This is just a blog for computer science stuff.
+
