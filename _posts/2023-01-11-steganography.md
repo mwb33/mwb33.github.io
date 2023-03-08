@@ -403,7 +403,7 @@ We can then post the pictures on any public place and be confident that no one w
 
 ## References
 
-James Stanger. The ancient practice of steganography: what is it, how is it used and why do cybersecurity pros need to understand it. 2020. [Online; accessed 24-July-2021]. URL: ![https://www.comptia.org/blog/what-is-steganography](https://www.comptia.org/blog/what-is-steganography).
+James Stanger. The ancient practice of steganography: what is it, how is it used and why do cybersecurity pros need to understand it. 2020. [Online; accessed 24-July-2021]. URL: [https://www.comptia.org/blog/what-is-steganography](https://www.comptia.org/blog/what-is-steganography).
 
 ## Full Python Scripts
 
