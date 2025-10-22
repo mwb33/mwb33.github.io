@@ -262,7 +262,7 @@ def main():
     decode(img)
 ```
 
-We need to love over every pixel in the file. For every pixel, we read three bits in. We only get a character every 8 bits. This function takes our secret bit out of the pixel color and returns a character when one is reached.
+We need to look over every pixel in the file. For every pixel, we read three bits in. We only get a character every 8 bits. This function takes our secret bit out of the pixel color and returns a character when one is reached.
 
 ```Python
 #When we read a bit we add it to the bit array.
