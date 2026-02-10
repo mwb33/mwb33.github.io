@@ -10,7 +10,7 @@ description: An introduction to qubits using BB84 Key distribution. This article
 
 Sending secret messages is a key component of security. For as long as people have needed to keep secrets, we have needed ways to secure information. As governments and militaries got larger and more advanced, the risks of messages being stole became greater.
 
-In modern times, we constantly send secret messages. Ever website you log into needs to keep your messages secret. Every credit card transaction or video chat needs to be secured from prying eyes.
+In modern times, we constantly send secret messages. Every website you log into needs to keep your messages secret. Every credit card transaction or video chat needs to be secured from prying eyes.
 
 The more important the information you need to secure is, the more effort you are willing to put into it. You might be willing to let a government supercomputer hack your Marvel Snap password. You might accept that they are able to, but you hope they don't care enough about you to do it. You absolutely don't want random hackers to get your password.
 
@@ -22,9 +22,9 @@ In this post, we will look at a simple **key distribution protocol** that can de
 
 ## Physics Basics
 
-*This section covers some basic physics ideas needs to understand the protocol. It is recommended you read [this post](https://blog.boady.net/quantum_intro/) if you want a more comprehensive introduction.*
+*This section covers some basic physics ideas required to understand the protocol. It is recommended you read [this post](https://blog.boady.net/quantum_intro/) if you want a more comprehensive introduction.*
 
-A quantum particle is one of the tiniest building blocks of our universe. These particles are governed by quantum physics instead of classical physics. Examples are electrons and photons. They exhibit someone called wave-particle duality.
+A quantum particle is one of the tiniest building blocks of our universe. These particles are governed by quantum physics instead of classical physics. Examples are electrons and photons. They exhibit something called wave-particle duality.
 
 When a quantum particle is measured, it looks like a classic particle. It seems like a physical thing. Once we measure it, we can measure it again and get the same answer.
 
@@ -73,7 +73,7 @@ These are called phases.
 | Phase Plus | $$\left\|+\right>$$ | Qubit facing forward |
 | Phase Negative | $$\left\|-\right>$$ | Qubit facing backwards |
 
-If we look for the correct thing, we can measure it. If we look for the wrong thing, we wil get a random answer.
+If we look for the correct thing, we can measure it. If we look for the wrong thing, we will get a random answer.
 
 Let's say you have a qubit pointing up.
 
@@ -130,7 +130,7 @@ Each letter in our message has a number that represents it. In a computer, this 
 
 These codes are common knowledge. If I send a message encoded like this, anyone with basic computer science knowledge can read it. I want to come up with a way to store letters which will allow the target of the message to read it but no one else.
 
-If I could someone put the message in an envelope and drop it off in person, that would be super secure! In real life, we often send our messages over the internet. We don't know exactly who might be looking at them as they travel to their destination. Even if we mailed a letter, it is possible someone could open it and reseal the envelope.
+If I could somehow put the message in an envelope and drop it off in person, that would be super secure! In real life, we often send our messages over the internet. We don't know exactly who might be looking at them as they travel to their destination. Even if we mailed a letter, it is possible someone could open it and reseal the envelope.
 
 One of the easiest ways to secure a message is to make a **key**. Anyone with the key can decode the message. Anyone without the key will fail.
 
@@ -165,27 +165,23 @@ There are a few problems with this example. First, notice that both "o" characte
 
 By just increasing the key size we can solve all but one big issue. How do we keep the key secret? If we send it over the internet and someone copies it our whole plan falls apart. We could print it on a piece of paper and hand it to you, but that might not scale well. I don't think you want to drive to the main office of every website you use. Also, if you carry those papers around someone could take a picture. We are left with one big problem. Getting both sides of the message to have the key without anyone knowing it.
 
-This is the part of the protocol qubits can fix! We cannot stop people from looking at messages sent in public. What we can do, it create a situation were we can detect if someone eavesdrops on our key. They we know it is not safe to use.
+This is the part of the protocol qubits can fix! We cannot stop people from looking at messages sent in public. What we can do, is create a situation were we can detect if someone eavesdrops on our key. They we know it is not safe to use.
 
 ## BB84 Protocol
 
-We have to people who want to send a secret message Alice and Bob. They are worried an eavesdropper (Eve) will steal their key. They have to communicate over a public internet channel. (We could run a special phone line just for them, but that might create other problems!)
+We have two people who want to send a secret message Alice and Bob. They are worried an eavesdropper (Eve) will steal their key. They have to communicate over a public internet channel. (We could run a special phone line just for them, but that might create other problems!)
 
-The first thing they need to do is exchange a key. If they can do that secretly, then they can send encoded messages over the public internet channel. The BB84 protocol gives them a way to do this an detect Eve.
+The first thing they need to do is exchange a key. If they can do that secretly, then they can send encoded messages over the public internet channel. The BB84 protocol gives them a way to do this and detect Eve.
 
 First, we will look at it with no eavesdropping at all. Remember, the key itself doesn't need to be anything specific. It just needs to be a binary number that Alice and Bob know but no one else does. The real messages will be sent later using this key.
 
 Alice says openly to Bob that she is going to start sending the key. She doesn't care if anyone else hears this. She sends him 200 qubits following the same pattern.
 
-- Alice flips a coin: heads means computation basis and tails means phase basis.
-- Alice flips another coin: heads means $\left|0\right>$ or $\left|+\right>$ (depending on previous flip). Tails means $\left|1\right>$ or $\left|-\right>$.
+Alice flips a coin to decide what to measure. She decides heads means computation basis and tails means phase basis. Alice flips another coin: heads means $\left \vert 0 \right >$ or $\left \vert + \right >$ (depending on previous flip). Tails means $\left \vert 1 \right >$ or $\left \vert - \right >$.
 
-Alice sends the qubit over the network channel. Bob gets is. He flips his own coins.
+Alice sends the qubit over the network channel. Bob gets is. He flips his own coins. If Bob gets heads, he measures the computational basis. When Bob gets tails, he measures the phase basis.
 
-- On heads, he measures the computational basis
-- On tails, he measures the phase basis
-
-He it trying to figure out if Alice flips heads (0) or tails (1) on her second flip each time. Here is a example with a few qubits. It shows all the possible outcomes.
+He is trying to figure out if Alice flips heads (0) or tails (1) on her second flip each time. Here is a example with a few qubits. It shows all the possible outcomes.
 
 | Alice Flip 1 | Alice Flip 2 | Qubit Sent | Bob Flip 1 | Bob Measurement |
 | ---- | ---- | ---- | --- | ---- |
@@ -210,9 +206,9 @@ If no eavesdropping is detected, Alice and Bob have a shared key that none one e
 
 ## Eavesdropping
 
-What happens when Eve tries to steal the key. Eve cannot copy the qubits without measuring them. This is called the no-cloning principle. So, she has to measure they as they pass by her on the way to Bob. Just like Bob, she has to guess what the original coin flip was. Eve has no way of knowing if she should measure phase or computational basis. If she picks wrong, she will get a random answer.
+What happens when Eve tries to steal the key? Eve cannot copy the qubits without measuring them. This is called the no-cloning principle. She has to measure them as they pass by her on the way to Bob. Just like Bob, she has to guess what the original coin flip was. Eve has no way of knowing if she should measure phase or computational basis. If she picks wrong, she will get a random answer.
 
-Once more thing is at risk if Eve picks wrong. If Alice sends in the computational basis and Eve measures in the phase basis that will change the qubit. Once it reaches Bob it will be different. Should Bob guess correctly (computational basis) he will get a wrong answer 50% of the time.
+One more thing is at risk if Eve picks wrong. If Alice sends in the computational basis and Eve measures in the phase basis that will change the qubit. Once it reaches Bob it will be different. Should Bob guess correctly (computational basis) he will get a wrong answer 50% of the time.
 
 Let's look at how the three players in our story can measure the qubits. We will use C for computational and P for Phase.
 
@@ -240,11 +236,11 @@ On those 135 qubits, Eve needs to either guess correctly or get lucky and have t
 | Same as Bob | Bob gets right answer |
 | Different and Bob | Bob might get the wrong answer 50% of the time |
 
-Eve has a 50% chance of guessing correctly. To guess all 135 qubits correctly, she has a 1 in 43,556,142,965,880,123,323,311,949,751,266,331,066,368 chance. That is about $4.3 * 10^{40}$. A rough estimate of the number of atoms in the human body is $7*10^{27}$ (Helmenstine). It would be easier for two people to guess the same atom in their body that for Eve to guess every coin flip correctly.
+Eve has a 50% chance of guessing correctly. To guess all 135 qubits correctly, she has a 1 in 43,556,142,965,880,123,323,311,949,751,266,331,066,368 chance. That is about $4.3 * 10^{40}$. A rough estimate of the number of atoms in the human body is $7*10^{27}$ (Helmenstine). It would be easier for two people to guess the same atom in someone's body than for Eve to guess every coin flip correctly.
 
 We can safely assume she will make some mistakes. Every mistake she makes will have a 50% chance of being detected. Imagine she only makes 10 total mistakes. The changes she will be detected are 1023 in 1024 (99.9%). If she makes 20 mistakes the chance she will be detected increases to 99.9999%.
 
-This protocol isn't perfect. There is a tiny chance that Eve can go undetected, but it is extremely small and the more qubits the smaller it gets. With enough qubits, the chances of Eve going undetected will be greater than the chance of two people guessing the same atom out of ever one in the entire universe.
+This protocol isn't perfect. There is a tiny chance that Eve can go undetected, but it is extremely small and the more qubits the smaller it gets. With enough qubits, the chances of Eve going undetected will be greater than the chance of two people guessing the same atom out of every one in the entire universe.
 
 This is a level of security we cannot get from classical computing. Quantum computing allows for sometimes entirely new and exciting. The very laws of quantum physics help up detect an eavesdropper!
 
@@ -254,7 +250,7 @@ The BB84 protocol is one of the most straightforward quantum security protocols.
 
 Classical encryption methods rely on levels of security. There are always ways to break them, but those methods take time. The more higher the classical security is, the longer it takes to crack. You might use a one-time password that can be cracked in a year, but no one will care about the answer in a year.
 
-Which quantum encryption methods, we take advantage of the basic laws of physics. Things that cannot be circumvented without finding flaws in our understanding of how the universe works. No matter how fast or powerful you make your computer, it will not bend the laws of physics. This provides a basis for a whole new type of security for transmitting secret messages.
+With quantum encryption methods, we take advantage of the basic laws of physics. Things that cannot be circumvented without finding flaws in our understanding of how the universe works. No matter how fast or powerful you make your computer, it will not bend the laws of physics. This provides a basis for a whole new type of security for transmitting secret messages.
 
 ## References
 
