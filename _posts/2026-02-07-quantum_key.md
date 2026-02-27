@@ -146,8 +146,11 @@ When you XOR two binary numbers you do the following:
 We can XOR the letters in "foom".
 
 $$01100110 \oplus  10101100 = 11001010$$
+
 $$01101111 \oplus  10101100 = 11000011$$
+
 $$01101111 \oplus  10101100 = 11000011$$
+
 $$01101101 \oplus  10101100 = 11000001$$
 
 The new binary values should look like nonsense to anyone reading our message. I send them across the internet and I am not worried if people look at them. They will look like nonsense letters.
@@ -155,8 +158,11 @@ The new binary values should look like nonsense to anyone reading our message. I
 The person I am sending my message two has the key. They use the key to decode the message back to the correct numbers.
 
 $$11001010 \oplus  10101100 = 01100110$$
+
 $$11000011 \oplus  10101100 = 01101111$$
+
 $$11000011 \oplus  10101100 = 01101111$$
+
 $$11000001 \oplus  10101100 = 01101101$$
 
 As long as only my target has the key, they are the only ones who can recover the secret message. They know now to unlock the vault.
