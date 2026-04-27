@@ -49,7 +49,10 @@ Let us imagine we are two spies that need to send messages to each other. We wan
 
 Remember that every character can be represented by a number.
 
-<a title="an unknown officer or employee of the United States Government, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:USASCII_code_chart.png"><img width="512" alt="USASCII code chart" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/USASCII_code_chart.png/512px-USASCII_code_chart.png"></a>
+<a title="an unknown officer or employee of the United States Government, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:USASCII_code_chart.png"></a>
+
+![Encoded Groundhog]({{ site.baseurl }}/images/steganography/img/USASCII_code_chart.png)
+<a href="https://commons.wikimedia.org/wiki/File:USASCII_code_chart.png">Source: an unknown officer or employee of the United States Government, Public domain, via Wikimedia Commons</a>
 
 You can look up the [ASCII Code](https://www.asciitable.com) and match characters to letters.
 
@@ -67,7 +70,8 @@ In a real situation, no one would encode plain text. You would want to encrypt y
 
 We need an image to hide our message in. We will use this picture of a groundhog from Wikipedia.
 
-<p><a href="https://commons.wikimedia.org/wiki/File:Marmota_monax_UL_04.jpg#/media/File:Marmota_monax_UL_04.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Marmota_monax_UL_04.jpg/1200px-Marmota_monax_UL_04.jpg" alt="Marmota monax UL 04.jpg"></a><br>By <a href="//commons.wikimedia.org/wiki/User:Cephas" title="User:Cephas">Cephas</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=27124271">Link</a></p>
+![Encoded Groundhog]({{ site.baseurl }}/images/steganography/img/marmota.jpg)
+<p><br>By <a href="//commons.wikimedia.org/wiki/User:Cephas" title="User:Cephas">Cephas</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=27124271">Link</a></p>
 
 We also need some text to encode. We will use the [Hamlet](https://www.gutenberg.org/ebooks/1524) from Project Gutenberg. 
 
